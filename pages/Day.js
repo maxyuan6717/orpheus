@@ -46,22 +46,26 @@ const Day = () => {
           })}
         </View>
         <View style={styles.buttonRow}>
-          <Pressable
-            style={styles.button}
-            onPress={() => {
-              setDay(Math.max(1, day - 1));
-            }}
-          >
-            <Text style={styles.buttonText}>Previous Day</Text>
-          </Pressable>
-          <Pressable
-            style={styles.button}
-            onPress={() => {
-              setDay(Math.min(21, day + 1));
-            }}
-          >
-            <Text style={styles.buttonText}>Next Day</Text>
-          </Pressable>
+          {day > 1 && (
+            <Pressable
+              style={styles.button}
+              onPress={() => {
+                setDay(Math.max(1, day - 1));
+              }}
+            >
+              <Text style={styles.buttonText}>Previous Day</Text>
+            </Pressable>
+          )}
+          {day < 21 && (
+            <Pressable
+              style={styles.button}
+              onPress={() => {
+                setDay(Math.min(21, day + 1));
+              }}
+            >
+              <Text style={styles.buttonText}>Next Day</Text>
+            </Pressable>
+          )}
         </View>
       </KeyboardAwareScrollView>
     </View>
