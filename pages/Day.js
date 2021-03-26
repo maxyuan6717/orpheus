@@ -48,7 +48,10 @@ const Day = () => {
         <View style={styles.buttonRow}>
           {day > 1 && (
             <Pressable
-              style={styles.button}
+              style={({ pressed }) => [
+                { backgroundColor: pressed ? "#ddd" : "#eee" },
+                styles.button,
+              ]}
               onPress={() => {
                 setDay(Math.max(1, day - 1));
               }}
@@ -58,7 +61,10 @@ const Day = () => {
           )}
           {day < 21 && (
             <Pressable
-              style={styles.button}
+              style={({ pressed }) => [
+                { backgroundColor: pressed ? "#ddd" : "#eee" },
+                styles.button,
+              ]}
               onPress={() => {
                 setDay(Math.min(21, day + 1));
               }}
@@ -103,7 +109,7 @@ const styles = StyleSheet.create({
   button: {
     marginHorizontal: 20,
     padding: 8,
-    backgroundColor: "#eee",
+    // backgroundColor: "#eee",
     borderRadius: 12,
   },
   buttonText: {
