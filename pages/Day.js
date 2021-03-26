@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import StyledTitle from "../components/Title";
 import * as Progress from "react-native-progress";
+import { program } from "../ProgramText";
 
 const Day = () => {
   const [day, setDay] = useState(1);
+  //   console.log(program[0].questions);
   return (
     <View style={styles.container}>
       {/* <Title text="Orpheus Pledge" /> */}
@@ -19,38 +22,28 @@ const Day = () => {
           color="#49d15f"
         />
       </View>
-      <ScrollView>
+      <KeyboardAwareScrollView extraScrollHeight={80}>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionHeader}>
-            Daily story: Change as a Form of Death
+            Daily story: {program[day - 1].story_title}
           </Text>
-          <Text>
-            One of the most powerful lessons I learned in my education and
-            training is the idea that change, in often small, but nonetheless
-            important ways is a kind of death. Moving to a new house, or town,
-            or school, causes a person to recognize that things are not as they
-            once were. This is true even when the change is potentially a good
-            thing. Researchers at Stanford looked at how much people would save
-            for a future self depending on their appearance and future traits.
-            People saved significantly less for future selves unlike them. This
-            makes sense, because when you change, you are a different person, a
-            stranger. As such that current self is dead in a meaningful way.
-            That’s part of the challenge of changing behaviors, you are killing
-            a self in some sense and creating a stranger.
-          </Text>
+          <Text>{program[day - 1].story_body}</Text>
           <Text style={styles.descriptionHeader}>
             Think about the following
           </Text>
-          <Text>
-            Answer one or some of the questions—Did you look at your device?
-            What was your change in usage? Did the decrease in usage change your
-            mood?
-          </Text>
-          <Text>
-            When have you been able/not able to identify with your future self?
-            How can you better be able to recognize change in your life?
-          </Text>
-          <Text>Fill in your screen time log.</Text>
+          {program[day - 1].questions.map((question, index) => {
+            // return <Text>{question}</Text>;
+            return (
+              <View key={index}>
+                <Text>{question}</Text>
+                <TextInput
+                  multiline={true}
+                  numberOfLines={4}
+                  style={styles.textInput}
+                />
+              </View>
+            );
+          })}
         </View>
         <View style={styles.buttonRow}>
           <Pressable
@@ -70,7 +63,7 @@ const Day = () => {
             <Text style={styles.buttonText}>Next Day</Text>
           </Pressable>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };
@@ -89,6 +82,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     marginVertical: 10,
+  },
+  textInput: {
+    borderColor: "#eee",
+    borderRadius: 5,
+    borderWidth: 1,
+    marginVertical: 10,
+    minHeight: 40,
   },
   buttonRow: {
     marginTop: 10,
